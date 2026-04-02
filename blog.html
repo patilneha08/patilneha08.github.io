@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Writing — Neha Patil</title>
+<title>Writing - Neha Patil</title>
 <style>
 :root {
   --font: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", sans-serif;
@@ -189,61 +189,6 @@ body {
   letter-spacing: 0.05em; text-transform: uppercase;
 }
 
-/* ── NEWSLETTER CTA ── */
-.newsletter-cta {
-  background: var(--bg2);
-  border-radius: var(--radius);
-  padding: 48px 44px;
-  display: flex; align-items: center; gap: 40px;
-  margin-top: 56px; flex-wrap: wrap;
-}
-
-.newsletter-icon {
-  width: 72px; height: 72px; flex-shrink: 0;
-  background: var(--accent-soft);
-  border-radius: 20px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 34px;
-}
-
-.newsletter-body { flex: 1; }
-
-.newsletter-title {
-  font-size: 22px; font-weight: 700;
-  letter-spacing: -0.02em; margin-bottom: 8px;
-}
-
-.newsletter-sub {
-  font-size: 15px; color: var(--text-secondary); line-height: 1.7;
-}
-
-.newsletter-form {
-  display: flex; gap: 10px; flex-shrink: 0; flex-wrap: wrap;
-}
-
-.newsletter-input {
-  padding: 12px 18px;
-  border: 1px solid var(--divider);
-  border-radius: 980px;
-  font-size: 15px; font-family: var(--font);
-  background: #fff; outline: none; min-width: 220px;
-  transition: border-color .18s;
-}
-
-.newsletter-input:focus { border-color: var(--accent); }
-
-.newsletter-btn {
-  padding: 12px 24px;
-  background: var(--accent); color: #fff;
-  border: none; border-radius: 980px;
-  font-size: 15px; font-weight: 500;
-  font-family: var(--font);
-  cursor: pointer;
-  transition: background .18s;
-}
-
-.newsletter-btn:hover { background: var(--accent-hover); }
-
 /* ── FOOTER ── */
 footer {
   background: var(--bg2);
@@ -262,9 +207,6 @@ footer {
 @media (max-width: 680px) {
   .post-row { grid-template-columns: 1fr; }
   .post-row-right { text-align: left; display: flex; align-items: center; gap: 12px; }
-  .newsletter-cta { flex-direction: column; gap: 24px; }
-  .newsletter-form { width: 100%; }
-  .newsletter-input { flex: 1; min-width: 0; }
   .nav-links { gap: 16px; }
 }
 </style>
@@ -279,7 +221,7 @@ footer {
       <li><a href="index.html">About</a></li>
       <li><a href="index.html#experience">Experience</a></li>
       <li><a href="index.html#projects">Projects</a></li>
-      <li><a href="blog.html" class="active">Writing ✍️</a></li>
+      <li><a href="blog.html" class="active">Writing</a></li>
     </ul>
   </div>
 </nav>
@@ -290,7 +232,7 @@ footer {
     <p class="eyebrow">Writing</p>
     <h1 class="blog-hero-title">Notes from the AI frontier</h1>
     <p class="blog-hero-sub">
-      Weekly posts on what I'm actually building and studying — GenAI, LLMs, RAG systems, Agentic AI, and the tools shaping the field. Written for engineers who want the real details, not the hype.
+      Weekly posts on what I'm actually building and studying: GenAI, LLMs, RAG systems, Agentic AI, and the tools shaping the field. Written for engineers who want the real details, not the hype.
     </p>
     <div class="filter-tabs" id="filters">
       <button class="filter-tab active" data-tag="all">All posts</button>
@@ -315,7 +257,7 @@ footer {
             <span class="post-tag rag">RAG</span>
           </div>
           <div class="post-row-title">Getting Started with RAG: What I Built and What I Learned</div>
-          <div class="post-row-excerpt">A practical walkthrough of my DocChat AI project — chunking strategies, embedding models, ChromaDB, and the gotchas nobody warns you about.</div>
+          <div class="post-row-excerpt">A practical walkthrough of my DocChat AI project. Chunking strategies, embedding models, ChromaDB, and the things nobody warns you about.</div>
         </div>
         <div class="post-row-right">
           <div class="post-date"><span class="coming-soon-badge">Coming soon</span></div>
@@ -330,7 +272,7 @@ footer {
             <span class="post-tag agent">Agentic AI</span>
           </div>
           <div class="post-row-title">Agentic AI Patterns: From ReAct to Multi-Agent Systems</div>
-          <div class="post-row-excerpt">How LLM agents reason, plan, and use tools — breaking down ReAct, Reflection, and Plan-and-Execute with real examples and failure modes.</div>
+          <div class="post-row-excerpt">How LLM agents reason, plan, and use tools. Breaking down ReAct, Reflection, and Plan-and-Execute with real examples and failure modes.</div>
         </div>
         <div class="post-row-right">
           <div class="post-date"><span class="coming-soon-badge">Coming soon</span></div>
@@ -345,7 +287,7 @@ footer {
             <span class="post-tag llms">LLMs</span>
           </div>
           <div class="post-row-title">How to Actually Evaluate Your LLM App</div>
-          <div class="post-row-excerpt">Vibes-based testing doesn't scale. A practical look at RAGAS, LLM-as-judge, and how to build an eval baseline that catches real regressions.</div>
+          <div class="post-row-excerpt">Vibes-based testing does not scale. A practical look at RAGAS, LLM-as-judge, and how to build an eval baseline that catches real regressions.</div>
         </div>
         <div class="post-row-right">
           <div class="post-date"><span class="coming-soon-badge">Coming soon</span></div>
@@ -361,7 +303,7 @@ footer {
             <span class="post-tag rag">RAG</span>
           </div>
           <div class="post-row-title">Fine-tuning vs RAG: When to Use Which (and When to Use Both)</div>
-          <div class="post-row-excerpt">The decision isn't binary. A framework for choosing between fine-tuning, RAG, and hybrid approaches based on your data, latency, and cost constraints.</div>
+          <div class="post-row-excerpt">The decision is not binary. A framework for choosing between fine-tuning, RAG, and hybrid approaches based on your data, latency, and cost constraints.</div>
         </div>
         <div class="post-row-right">
           <div class="post-date"><span class="coming-soon-badge">Coming soon</span></div>
@@ -385,20 +327,6 @@ footer {
       </a>
 
     </div>
-
-    <!-- Newsletter CTA -->
-    <div class="newsletter-cta reveal">
-      <div class="newsletter-icon">📬</div>
-      <div class="newsletter-body">
-        <div class="newsletter-title">Get posts in your inbox</div>
-        <div class="newsletter-sub">Weekly. No spam. Just what I'm learning in AI — the practical stuff.</div>
-      </div>
-      <div class="newsletter-form">
-        <input type="email" class="newsletter-input" placeholder="your@email.com"/>
-        <button class="newsletter-btn">Subscribe</button>
-      </div>
-    </div>
-
   </div>
 </div>
 
@@ -406,7 +334,7 @@ footer {
 <footer>
   <div class="page">
     <div class="footer-name">Neha Patil</div>
-    <div class="footer-sub">Writing about AI &nbsp;·&nbsp; neha.patil.tech@gmail.com</div>
+    <div class="footer-sub">Writing about AI &nbsp;&middot;&nbsp; neha.patil.tech@gmail.com</div>
   </div>
 </footer>
 
@@ -419,7 +347,6 @@ tabs.forEach(tab => {
   tab.addEventListener('click', () => {
     tabs.forEach(t => t.classList.remove('active'));
     tab.classList.add('active');
-
     const tag = tab.dataset.tag;
     posts.forEach(post => {
       const tags = post.dataset.tags || '';
@@ -443,16 +370,7 @@ const observer = new IntersectionObserver(entries => {
   });
 }, { threshold: 0.08 });
 items.forEach(el => observer.observe(el));
-
-// Newsletter button (placeholder)
-document.querySelector('.newsletter-btn').addEventListener('click', () => {
-  const input = document.querySelector('.newsletter-input');
-  if (input.value && input.value.includes('@')) {
-    input.value = '';
-    input.placeholder = '✓ You\'re on the list!';
-    input.style.borderColor = '#30d158';
-  }
-});
 </script>
+
 </body>
 </html>
