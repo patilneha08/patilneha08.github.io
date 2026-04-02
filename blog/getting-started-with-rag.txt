@@ -1,0 +1,29 @@
+title: Getting Started with RAG: What I Built and What I Learned
+tags: rag, llms
+excerpt: A practical walkthrough of my DocChat AI project — chunking strategies, embedding models, ChromaDB, and the things nobody warns you about.
+date: 2025-06-10
+---
+
+Retrieval-Augmented Generation (RAG) sounds simple in theory: take a user query, find relevant chunks from your documents, stuff them into an LLM prompt, and get a grounded answer. In practice there are a dozen decisions that will silently hurt your accuracy if you get them wrong.
+
+## Why I built DocChat
+
+I wanted a fully offline, privacy-preserving document Q&A system. No OpenAI API calls, no data leaving my machine. That meant running an open-source LLM (Mistral 7B via Ollama) and building every layer myself — ingestion, chunking, embedding, retrieval, and generation.
+
+## The chunking problem
+
+The single biggest lever I found was chunk size. Too large and the model gets distracted by irrelevant text in the same chunk. Too small and you lose the surrounding context the model needs to reason correctly.
+
+I ended up with 512-token chunks and a 64-token overlap using LangChain's RecursiveCharacterTextSplitter. That overlap is important — it prevents key sentences from being cut in half at a chunk boundary.
+
+## Embedding model choice
+
+I tested two models: all-MiniLM-L6-v2 (fast, lightweight) and BAAI/bge-base-en-v1.5 (slower, much better on technical text). For code and engineering documents, BGE won every time.
+
+## What I'd do differently
+
+Start with evals before you start with code. I spent two weeks tuning chunking and retrieval before I had a way to measure whether things were actually getting better. Build a small golden dataset of 20–30 question-answer pairs on day one.
+
+## Links
+
+Full project code is on my GitHub. The README has setup instructions for running Ollama locally on Mac or Linux.
