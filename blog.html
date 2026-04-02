@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Writing — Neha Patil</title>
+<style>
+:root {
+  --font: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", sans-serif;
+  --bg: #ffffff;
+  --bg2: #f5f5f7;
+  --text-primary: #1d1d1f;
+  --text-secondary: #6e6e73;
+  --text-tertiary: #86868b;
+  --accent: #6e3aff;
+  --accent-hover: #5a2ee0;
+  --accent-soft: #ede8ff;
+  --divider: #d2d2d7;
+  --shadow-sm: 0 2px 8px rgba(0,0,0,0.07);
+  --shadow-md: 0 4px 20px rgba(0,0,0,0.10);
+  --radius: 18px;
+  --radius-sm: 12px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text-primary);
+  font-size: 17px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+.page { max-width: 980px; margin: 0 auto; padding: 0 22px; }
+
+/* ── NAV ── */
+.site-nav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  border-bottom: 1px solid var(--divider);
+}
+
+.nav-inner {
+  max-width: 980px; margin: 0 auto; padding: 0 22px;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 52px;
+}
+
+.nav-logo {
+  font-size: 15px; font-weight: 600;
+  color: var(--text-primary); text-decoration: none;
+}
+
+.nav-links {
+  display: flex; align-items: center; gap: 28px; list-style: none;
+}
+
+.nav-links a {
+  font-size: 14px; font-weight: 400;
+  color: var(--text-secondary); text-decoration: none;
+  transition: color .15s;
+}
+
+.nav-links a:hover, .nav-links a.active { color: var(--accent); font-weight: 500; }
+
+/* ── HERO ── */
+.blog-hero {
+  padding: 72px 0 56px;
+  border-bottom: 1px solid var(--divider);
+}
+
+.eyebrow {
+  font-size: 13px; font-weight: 600;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 8px;
+}
+
+.blog-hero-title {
+  font-size: clamp(2.2rem, 4vw, 3.2rem);
+  font-weight: 700; letter-spacing: -0.03em; line-height: 1.1;
+  margin-bottom: 16px;
+}
+
+.blog-hero-sub {
+  font-size: 16px; color: var(--text-secondary);
+  line-height: 1.8; max-width: 560px;
+  margin-bottom: 32px;
+}
+
+/* ── FILTER TABS ── */
+.filter-tabs {
+  display: flex; flex-wrap: wrap; gap: 10px;
+}
+
+.filter-tab {
+  padding: 8px 20px;
+  background: var(--bg2);
+  border: none; border-radius: 980px;
+  font-size: 14px; font-weight: 500;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: background .18s, color .18s;
+  font-family: var(--font);
+}
+
+.filter-tab:hover { background: var(--divider); }
+.filter-tab.active { background: var(--accent); color: #fff; }
+
+/* ── POST LIST ── */
+.posts-section { padding: 56px 0; }
+
+.posts-list { display: flex; flex-direction: column; gap: 16px; }
+
+.post-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 24px;
+  align-items: center;
+  padding: 28px 32px;
+  background: #fff;
+  border: 1px solid var(--divider);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-sm);
+  text-decoration: none;
+  transition: box-shadow .2s, transform .2s;
+}
+
+.post-row:hover { box-shadow: var(--shadow-md); transform: translateX(4px); }
+
+.post-row-left {}
+
+.post-row-tags {
+  display: flex; gap: 8px; margin-bottom: 10px; flex-wrap: wrap;
+}
+
+.post-tag {
+  padding: 3px 11px;
+  background: var(--accent-soft);
+  border-radius: 980px;
+  font-size: 12px; font-weight: 600;
+  color: var(--accent);
+}
+
+.post-tag.rag    { background: #e8f9f0; color: #1a9e5c; }
+.post-tag.llms   { background: #fff4e6; color: #c0640a; }
+.post-tag.genai  { background: #fde8f8; color: #9b3faa; }
+.post-tag.agent  { background: #e8f1ff; color: #1a52c0; }
+.post-tag.tools  { background: #e8fafb; color: #0a7a8a; }
+
+.post-row-title {
+  font-size: 18px; font-weight: 700;
+  color: var(--text-primary); line-height: 1.4;
+  letter-spacing: -0.01em; margin-bottom: 8px;
+}
+
+.post-row-excerpt {
+  font-size: 14px; color: var(--text-secondary); line-height: 1.65;
+}
+
+.post-row-right { text-align: right; flex-shrink: 0; }
+
+.post-date { font-size: 13px; color: var(--text-tertiary); margin-bottom: 8px; white-space: nowrap; }
+
+.post-arrow {
+  font-size: 20px; color: var(--accent);
+  display: block;
+}
+
+/* coming soon state */
+.post-row.coming-soon {
+  opacity: 0.65; cursor: default;
+  border-style: dashed;
+}
+
+.post-row.coming-soon:hover { box-shadow: var(--shadow-sm); transform: none; }
+
+.coming-soon-badge {
+  display: inline-block;
+  padding: 3px 10px;
+  background: var(--bg2);
+  border-radius: 980px;
+  font-size: 11px; font-weight: 600;
+  color: var(--text-tertiary);
+  letter-spacing: 0.05em; text-transform: uppercase;
+}
+
+/* ── NEWSLETTER CTA ── */
+.newsletter-cta {
+  background: var(--bg2);
+  border-radius: var(--radius);
+  padding: 48px 44px;
+  display: flex; align-items: center; gap: 40px;
+  margin-top: 56px; flex-wrap: wrap;
+}
+
+.newsletter-icon {
+  width: 72px; height: 72px; flex-shrink: 0;
+  background: var(--accent-soft);
+  border-radius: 20px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 34px;
+}
+
+.newsletter-body { flex: 1; }
+
+.newsletter-title {
+  font-size: 22px; font-weight: 700;
+  letter-spacing: -0.02em; margin-bottom: 8px;
+}
+
+.newsletter-sub {
+  font-size: 15px; color: var(--text-secondary); line-height: 1.7;
+}
+
+.newsletter-form {
+  display: flex; gap: 10px; flex-shrink: 0; flex-wrap: wrap;
+}
+
+.newsletter-input {
+  padding: 12px 18px;
+  border: 1px solid var(--divider);
+  border-radius: 980px;
+  font-size: 15px; font-family: var(--font);
+  background: #fff; outline: none; min-width: 220px;
+  transition: border-color .18s;
+}
+
+.newsletter-input:focus { border-color: var(--accent); }
+
+.newsletter-btn {
+  padding: 12px 24px;
+  background: var(--accent); color: #fff;
+  border: none; border-radius: 980px;
+  font-size: 15px; font-weight: 500;
+  font-family: var(--font);
+  cursor: pointer;
+  transition: background .18s;
+}
+
+.newsletter-btn:hover { background: var(--accent-hover); }
+
+/* ── FOOTER ── */
+footer {
+  background: var(--bg2);
+  border-top: 1px solid var(--divider);
+  padding: 44px 0;
+  text-align: center;
+}
+
+.footer-name { font-size: 17px; font-weight: 600; margin-bottom: 6px; }
+.footer-sub  { font-size: 14px; color: var(--text-tertiary); }
+
+/* ── REVEAL ── */
+.reveal { opacity: 0; transform: translateY(18px); transition: opacity .5s ease, transform .5s ease; }
+.reveal.visible { opacity: 1; transform: none; }
+
+@media (max-width: 680px) {
+  .post-row { grid-template-columns: 1fr; }
+  .post-row-right { text-align: left; display: flex; align-items: center; gap: 12px; }
+  .newsletter-cta { flex-direction: column; gap: 24px; }
+  .newsletter-form { width: 100%; }
+  .newsletter-input { flex: 1; min-width: 0; }
+  .nav-links { gap: 16px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════════ NAV ══════════════ -->
+<nav class="site-nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">Neha Patil</a>
+    <ul class="nav-links">
+      <li><a href="index.html">About</a></li>
+      <li><a href="index.html#experience">Experience</a></li>
+      <li><a href="index.html#projects">Projects</a></li>
+      <li><a href="blog.html" class="active">Writing ✍️</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ══════════════ HERO ══════════════ -->
+<div class="blog-hero">
+  <div class="page">
+    <p class="eyebrow">Writing</p>
+    <h1 class="blog-hero-title">Notes from the AI frontier</h1>
+    <p class="blog-hero-sub">
+      Weekly posts on what I'm actually building and studying — GenAI, LLMs, RAG systems, Agentic AI, and the tools shaping the field. Written for engineers who want the real details, not the hype.
+    </p>
+    <div class="filter-tabs" id="filters">
+      <button class="filter-tab active" data-tag="all">All posts</button>
+      <button class="filter-tab" data-tag="rag">RAG</button>
+      <button class="filter-tab" data-tag="llms">LLMs</button>
+      <button class="filter-tab" data-tag="genai">GenAI</button>
+      <button class="filter-tab" data-tag="agent">Agentic AI</button>
+      <button class="filter-tab" data-tag="tools">Tools</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ POSTS ══════════════ -->
+<div class="posts-section">
+  <div class="page">
+    <div class="posts-list" id="postsList">
+
+      <!-- POST 1 -->
+      <a href="posts/getting-started-with-rag.html" class="post-row coming-soon" data-tags="rag">
+        <div class="post-row-left">
+          <div class="post-row-tags">
+            <span class="post-tag rag">RAG</span>
+          </div>
+          <div class="post-row-title">Getting Started with RAG: What I Built and What I Learned</div>
+          <div class="post-row-excerpt">A practical walkthrough of my DocChat AI project — chunking strategies, embedding models, ChromaDB, and the gotchas nobody warns you about.</div>
+        </div>
+        <div class="post-row-right">
+          <div class="post-date"><span class="coming-soon-badge">Coming soon</span></div>
+          <span class="post-arrow">→</span>
+        </div>
+      </a>
+
+      <!-- POST 2 -->
+      <a href="posts/agentic-ai-patterns.html" class="post-row coming-soon" data-tags="agent">
+        <div class="post-row-left">
+          <div class="post-row-tags">
+            <span class="post-tag agent">Agentic AI</span>
+          </div>
+          <div class="post-row-title">Agentic AI Patterns: From ReAct to Multi-Agent Systems</div>
+          <div class="post-row-excerpt">How LLM agents reason, plan, and use tools — breaking down ReAct, Reflection, and Plan-and-Execute with real examples and failure modes.</div>
+        </div>
+        <div class="post-row-right">
+          <div class="post-date"><span class="coming-soon-badge">Coming soon</span></div>
+          <span class="post-arrow">→</span>
+        </div>
+      </a>
+
+      <!-- POST 3 -->
+      <a href="posts/llm-evals.html" class="post-row coming-soon" data-tags="llms">
+        <div class="post-row-left">
+          <div class="post-row-tags">
+            <span class="post-tag llms">LLMs</span>
+          </div>
+          <div class="post-row-title">How to Actually Evaluate Your LLM App</div>
+          <div class="post-row-excerpt">Vibes-based testing doesn't scale. A practical look at RAGAS, LLM-as-judge, and how to build an eval baseline that catches real regressions.</div>
+        </div>
+        <div class="post-row-right">
+          <div class="post-date"><span class="coming-soon-badge">Coming soon</span></div>
+          <span class="post-arrow">→</span>
+        </div>
+      </a>
+
+      <!-- POST 4 -->
+      <a href="posts/fine-tuning-vs-rag.html" class="post-row coming-soon" data-tags="llms rag">
+        <div class="post-row-left">
+          <div class="post-row-tags">
+            <span class="post-tag llms">LLMs</span>
+            <span class="post-tag rag">RAG</span>
+          </div>
+          <div class="post-row-title">Fine-tuning vs RAG: When to Use Which (and When to Use Both)</div>
+          <div class="post-row-excerpt">The decision isn't binary. A framework for choosing between fine-tuning, RAG, and hybrid approaches based on your data, latency, and cost constraints.</div>
+        </div>
+        <div class="post-row-right">
+          <div class="post-date"><span class="coming-soon-badge">Coming soon</span></div>
+          <span class="post-arrow">→</span>
+        </div>
+      </a>
+
+      <!-- POST 5 -->
+      <a href="posts/mlflow-experiment-tracking.html" class="post-row coming-soon" data-tags="tools">
+        <div class="post-row-left">
+          <div class="post-row-tags">
+            <span class="post-tag tools">Tools</span>
+          </div>
+          <div class="post-row-title">MLflow for ML Experiment Tracking: A Practical Guide</div>
+          <div class="post-row-excerpt">How I use MLflow to track experiments, compare runs, and avoid the "which model was that again?" problem. With a real example from an XGBoost project.</div>
+        </div>
+        <div class="post-row-right">
+          <div class="post-date"><span class="coming-soon-badge">Coming soon</span></div>
+          <span class="post-arrow">→</span>
+        </div>
+      </a>
+
+    </div>
+
+    <!-- Newsletter CTA -->
+    <div class="newsletter-cta reveal">
+      <div class="newsletter-icon">📬</div>
+      <div class="newsletter-body">
+        <div class="newsletter-title">Get posts in your inbox</div>
+        <div class="newsletter-sub">Weekly. No spam. Just what I'm learning in AI — the practical stuff.</div>
+      </div>
+      <div class="newsletter-form">
+        <input type="email" class="newsletter-input" placeholder="your@email.com"/>
+        <button class="newsletter-btn">Subscribe</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════ FOOTER ══════════════ -->
+<footer>
+  <div class="page">
+    <div class="footer-name">Neha Patil</div>
+    <div class="footer-sub">Writing about AI &nbsp;·&nbsp; neha.patil.tech@gmail.com</div>
+  </div>
+</footer>
+
+<script>
+// Filter tabs
+const tabs = document.querySelectorAll('.filter-tab');
+const posts = document.querySelectorAll('.post-row');
+
+tabs.forEach(tab => {
+  tab.addEventListener('click', () => {
+    tabs.forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+
+    const tag = tab.dataset.tag;
+    posts.forEach(post => {
+      const tags = post.dataset.tags || '';
+      if (tag === 'all' || tags.includes(tag)) {
+        post.style.display = 'grid';
+      } else {
+        post.style.display = 'none';
+      }
+    });
+  });
+});
+
+// Scroll reveal
+const items = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => entry.target.classList.add('visible'), i * 60);
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.08 });
+items.forEach(el => observer.observe(el));
+
+// Newsletter button (placeholder)
+document.querySelector('.newsletter-btn').addEventListener('click', () => {
+  const input = document.querySelector('.newsletter-input');
+  if (input.value && input.value.includes('@')) {
+    input.value = '';
+    input.placeholder = '✓ You\'re on the list!';
+    input.style.borderColor = '#30d158';
+  }
+});
+</script>
+</body>
+</html>

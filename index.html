@@ -400,7 +400,122 @@ footer {
 .footer-sub  { font-size: 14px; color: var(--text-tertiary); }
 
 /* ════════════════════════════════
-   SCROLL REVEAL
+   NAV BAR
+════════════════════════════════ */
+.site-nav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  border-bottom: 1px solid var(--divider);
+  padding: 0;
+}
+
+.nav-inner {
+  max-width: 980px; margin: 0 auto; padding: 0 22px;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 52px;
+}
+
+.nav-logo {
+  font-size: 15px; font-weight: 600;
+  color: var(--text-primary);
+  text-decoration: none;
+}
+
+.nav-links {
+  display: flex; align-items: center; gap: 28px;
+  list-style: none;
+}
+
+.nav-links a {
+  font-size: 14px; font-weight: 400;
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: color .15s;
+}
+
+.nav-links a:hover { color: var(--accent); }
+.nav-links a.active { color: var(--accent); font-weight: 500; }
+
+/* ════════════════════════════════
+   BLOG GRID
+════════════════════════════════ */
+.blog-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.blog-card {
+  background: #fff;
+  border: 1px solid var(--divider);
+  border-radius: var(--radius);
+  padding: 28px;
+  box-shadow: var(--shadow-sm);
+  text-decoration: none;
+  display: flex; flex-direction: column;
+  transition: box-shadow .2s, transform .2s;
+}
+
+.blog-card:hover { box-shadow: var(--shadow-md); transform: translateY(-3px); }
+
+.blog-card-top {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.blog-tag {
+  padding: 4px 12px;
+  background: var(--accent-soft);
+  border-radius: 980px;
+  font-size: 12px; font-weight: 600;
+  color: var(--accent);
+}
+
+.blog-date {
+  font-size: 12px; color: var(--text-tertiary);
+}
+
+.blog-title {
+  font-size: 16px; font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.4;
+  margin-bottom: 12px;
+  letter-spacing: -0.01em;
+}
+
+.blog-excerpt {
+  font-size: 14px; color: var(--text-secondary);
+  line-height: 1.7; flex: 1;
+  margin-bottom: 20px;
+}
+
+.blog-read {
+  font-size: 14px; font-weight: 600;
+  color: var(--accent);
+}
+
+.btn-all-posts {
+  display: inline-flex; align-items: center;
+  padding: 12px 28px;
+  background: var(--accent-soft);
+  border-radius: 980px;
+  font-size: 15px; font-weight: 600;
+  color: var(--accent);
+  text-decoration: none;
+  transition: background .18s, color .18s;
+}
+
+.btn-all-posts:hover { background: var(--accent); color: #fff; }
+
+@media (max-width: 680px) {
+  .blog-grid { grid-template-columns: 1fr; }
+  .nav-links { gap: 16px; }
+}
+
+/* ════════════════════════════════
+   NAV BAR
 ════════════════════════════════ */
 .reveal {
   opacity: 0; transform: translateY(22px);
@@ -438,6 +553,19 @@ footer {
 </head>
 <body>
 
+<!-- ══════════════ NAV ══════════════ -->
+<nav class="site-nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">Neha Patil</a>
+    <ul class="nav-links">
+      <li><a href="index.html#hero">About</a></li>
+      <li><a href="index.html#experience" onclick="this.closest('nav').querySelectorAll('a').forEach(a=>a.classList.remove('active'));this.classList.add('active')">Experience</a></li>
+      <li><a href="index.html#projects">Projects</a></li>
+      <li><a href="blog.html">Writing ✍️</a></li>
+    </ul>
+  </div>
+</nav>
+
 <!-- ══════════════ HERO ══════════════ -->
 <div id="hero">
   <div class="page">
@@ -449,7 +577,7 @@ footer {
           <!--
             TO ADD YOUR PHOTO:
             Delete the <span> below and add:
-            
+            <img src="photo.jpg" alt="Neha Patil">
           -->
           <img src="Neha.png" alt="Neha Patil">
         </div>
@@ -462,14 +590,14 @@ footer {
           Open to new opportunities · New York, NY
         </div>
         <h1 class="hero-name anim-3">Neha Patil</h1>
-        <p class="hero-subtitle anim-4">Software / ML / Data Engineer &nbsp;·&nbsp; 2+ Years</p>
+        <p class="hero-subtitle anim-4">Software / ML / Data Engineer &nbsp;·&nbsp; 3+ Years</p>
         <p class="hero-bio anim-5">
-          Software Engineer with 2+ years building scalable backend systems and data pipelines at Accenture (Barclays). Pursuing an M.S. in Computer Engineering at NYU Tandon (GPA 3.82) with deep focus on ML, MLOps, and Big Data. Passionate about turning complex data into reliable, production-grade systems.
+          Software Engineer with 3+ years building scalable backend systems and data pipelines at Accenture (Barclays). Pursuing an M.S. in Computer Engineering at NYU Tandon (GPA 3.82) with deep focus on ML, MLOps, and Big Data. Passionate about turning complex data into reliable, production-grade systems.
         </p>
         <div class="chips anim-6">
-          <a href="mailto:neha.patil.tech@gmail.com" class="chip">
+          <a href="/cdn-cgi/l/email-protection#8ee0ebe6efa0feeffae7e2a0faebede6cee9e3efe7e2a0ede1e3" class="chip">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></svg>
-            neha.patil.tech@gmail.com
+            <span class="__cf_email__" data-cfemail="2f414a474e015f4e5b4643015b4a4c476f48424e4643014c4042">[email&#160;protected]</span>
           </a>
           <a href="https://www.linkedin.com/in/neha-patil08" target="_blank" class="chip">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
@@ -493,7 +621,7 @@ footer {
 <hr class="divider"/>
 
 <!-- ══════════════ EXPERIENCE ══════════════ -->
-<div class="section">
+<div class="section" id="experience">
   <div class="page">
     <p class="eyebrow">Experience</p>
     <h2 class="section-title">Where I've worked</h2>
@@ -502,7 +630,7 @@ footer {
 
       <div class="exp-item reveal">
         <div>
-          <div class="exp-meta-period">Oct 2021 - Apr 2024</div>
+          <div class="exp-meta-period">Oct 2021 — Apr 2024</div>
           <div class="exp-meta-company">Accenture</div>
           <div class="exp-meta-location">Client: Barclays · Bengaluru, India</div>
         </div>
@@ -520,7 +648,7 @@ footer {
 
       <div class="exp-item reveal">
         <div>
-          <div class="exp-meta-period">Mar 2021 - Jun 2021</div>
+          <div class="exp-meta-period">Mar 2021 — Jun 2021</div>
           <div class="exp-meta-company">TCS iON</div>
           <div class="exp-meta-location">Remote, India</div>
         </div>
@@ -611,7 +739,7 @@ footer {
     <div class="edu-card reveal">
       <div class="edu-icon">🎓</div>
       <div class="edu-body">
-        <div class="edu-school">New York University - Tandon School of Engineering</div>
+        <div class="edu-school">New York University — Tandon School of Engineering</div>
         <div class="edu-degree">M.S. in Computer Engineering</div>
         <div class="edu-year">Graduation: May 2026 &nbsp;·&nbsp; Coursework: ML, MLOps, Deep Learning, Big Data, Efficient AI &amp; Hardware Accelerator Design, Computing Systems Architecture</div>
       </div>
@@ -628,7 +756,7 @@ footer {
       <div class="edu-body">
         <div class="edu-school">Visvesvaraya Technological University, Belagavi</div>
         <div class="edu-degree">B.E. in Electronics &amp; Communication Engineering</div>
-        <div class="edu-year">Aug 2017 - Jun 2021</div>
+        <div class="edu-year">Aug 2017 — Jun 2021</div>
       </div>
       <div class="edu-gpa">
         <div class="edu-gpa-num">8.18</div>
@@ -664,7 +792,7 @@ footer {
       </div>
       <div class="award-tile reveal">
         <span class="award-emoji">🎤</span>
-        <div class="award-name">Silicon Valley Meetup - Selected Attendee</div>
+        <div class="award-name">Silicon Valley Meetup — Selected Attendee</div>
         <div class="award-date">Stanford · 2020</div>
       </div>
       <div class="award-tile reveal">
@@ -684,7 +812,7 @@ footer {
 <hr class="divider"/>
 
 <!-- ══════════════ PROJECTS ══════════════ -->
-<div class="section">
+<div class="section" id="projects">
   <div class="page">
     <p class="eyebrow">Projects</p>
     <h2 class="section-title">Things I've built</h2>
@@ -709,7 +837,7 @@ footer {
 
       <div class="project-card reveal">
         <div class="project-pill">🤖 &nbsp; GenAI / RAG</div>
-        <div class="project-title">DocChat AI - Document Intelligence Assistant</div>
+        <div class="project-title">DocChat AI — Document Intelligence Assistant</div>
         <p class="project-desc">
           Built a RAG-based document Q&amp;A assistant enabling conversational querying of PDF, TXT, and DOCX files using LangChain, ChromaDB, Ollama (Mistral 7B), FastAPI, and Streamlit. Designed an ingestion pipeline to chunk, embed, and index documents into ChromaDB; integrated Mistral 7B via Ollama for fully offline, privacy-preserving document Q&amp;A.
         </p>
@@ -742,7 +870,7 @@ footer {
         <div class="leadership-body">
           <div class="leadership-role">University Innovation Fellow</div>
           <div class="leadership-org">Hasso Plattner Institute of Design at Stanford (d.school)</div>
-          <div class="leadership-period">Oct 2019 - Aug 2022</div>
+          <div class="leadership-period">Oct 2019 — Aug 2022</div>
           <div class="leadership-desc">Organized campus innovation events with Stanford d.school and KLS GIT; selected to attend the Silicon Valley Meetup 2020 at Stanford. Won the d.challenge competition and facilitated Design Thinking workshops at the National Entrepreneurship Summit 2020.</div>
         </div>
       </div>
@@ -752,7 +880,7 @@ footer {
         <div class="leadership-body">
           <div class="leadership-role">Member</div>
           <div class="leadership-org">Rotaract Club of Venugram · Belgaum, India</div>
-          <div class="leadership-period">Jul 2022 - Jun 2023</div>
+          <div class="leadership-period">Jul 2022 — Jun 2023</div>
           <div class="leadership-desc">Organized 10+ community events and leadership workshops, engaging 200+ participants across Belgaum.</div>
         </div>
       </div>
@@ -763,14 +891,64 @@ footer {
 
 <hr class="divider"/>
 
-<!-- ══════════════ SOCIAL / LINKS ══════════════ -->
+<!-- ══════════════ WRITING / BLOG ══════════════ -->
 <div class="section">
+  <div class="page">
+    <p class="eyebrow">Writing</p>
+    <h2 class="section-title" style="margin-bottom: 16px;">What I'm learning</h2>
+    <p style="font-size:16px; color:var(--text-secondary); margin-bottom: 40px; max-width: 560px; line-height: 1.75;">
+      Every week I write about what I'm exploring in the AI space — GenAI, LLMs, RAG systems, Agentic AI, and emerging tools. No fluff, just things I've actually built or studied.
+    </p>
+
+    <div class="blog-grid">
+
+      <a href="posts/getting-started-with-rag.html" class="blog-card reveal">
+        <div class="blog-card-top">
+          <span class="blog-tag">RAG</span>
+          <span class="blog-date">Coming soon</span>
+        </div>
+        <div class="blog-title">Getting Started with RAG: What I Built and What I Learned</div>
+        <div class="blog-excerpt">A practical walkthrough of building a document Q&A assistant — chunking strategies, embedding models, ChromaDB, and the gotchas nobody warns you about.</div>
+        <div class="blog-read">Read →</div>
+      </a>
+
+      <a href="posts/agentic-ai-patterns.html" class="blog-card reveal">
+        <div class="blog-card-top">
+          <span class="blog-tag">Agentic AI</span>
+          <span class="blog-date">Coming soon</span>
+        </div>
+        <div class="blog-title">Agentic AI Patterns: From ReAct to Multi-Agent Systems</div>
+        <div class="blog-excerpt">How LLM agents actually reason, plan, and use tools — breaking down the key patterns with real examples and where they still fall apart.</div>
+        <div class="blog-read">Read →</div>
+      </a>
+
+      <a href="posts/llm-evals.html" class="blog-card reveal">
+        <div class="blog-card-top">
+          <span class="blog-tag">LLMs</span>
+          <span class="blog-date">Coming soon</span>
+        </div>
+        <div class="blog-title">How to Actually Evaluate Your LLM App</div>
+        <div class="blog-excerpt">Vibes-based testing doesn't scale. A look at practical eval frameworks — from RAGAS to LLM-as-judge — and how to set up a baseline that means something.</div>
+        <div class="blog-read">Read →</div>
+      </a>
+
+    </div>
+
+    <div style="margin-top: 36px; text-align: center;">
+      <a href="blog.html" class="btn-all-posts">View all posts →</a>
+    </div>
+  </div>
+</div>
+
+<hr class="divider"/>
+
+<!-- ══════════════ SOCIAL / LINKS ══════════════ -->
+<div class="section-alt">
   <div class="page">
     <p class="eyebrow">Connect</p>
     <h2 class="section-title">Find me online</h2>
 
     <div class="social-list">
-
       <a href="https://www.linkedin.com/in/neha-patil08" target="_blank" class="social-link reveal">
         <div class="social-icon" style="background:#e7f0fd;">💼</div>
         <div class="social-info">
@@ -797,21 +975,9 @@ footer {
 <footer>
   <div class="page">
     <div class="footer-name">Neha Patil</div>
-    <div class="footer-sub">Software / ML / Data Engineer &nbsp;·&nbsp; neha.patil.tech@gmail.com</div>
+    <div class="footer-sub">Software / ML / Data Engineer &nbsp;·&nbsp; <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="640a010c054a1405100d084a1001070c240309050d084a070b09">[email&#160;protected]</a></div>
   </div>
 </footer>
 
-<script>
-  const items = document.querySelectorAll('.reveal');
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach((entry, i) => {
-      if (entry.isIntersecting) {
-        setTimeout(() => entry.target.classList.add('visible'), i * 55);
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.08 });
-  items.forEach(el => observer.observe(el));
-</script>
-</body>
-</html>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  const items = document.qu

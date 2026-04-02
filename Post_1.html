@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Getting Started with RAG — Neha Patil</title>
+<style>
+:root {
+  --font: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", sans-serif;
+  --bg: #ffffff;
+  --bg2: #f5f5f7;
+  --text-primary: #1d1d1f;
+  --text-secondary: #6e6e73;
+  --text-tertiary: #86868b;
+  --accent: #6e3aff;
+  --accent-hover: #5a2ee0;
+  --accent-soft: #ede8ff;
+  --divider: #d2d2d7;
+  --shadow-sm: 0 2px 8px rgba(0,0,0,0.07);
+  --shadow-md: 0 4px 20px rgba(0,0,0,0.10);
+  --radius: 18px;
+  --radius-sm: 12px;
+  --prose-width: 680px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text-primary);
+  font-size: 17px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* NAV */
+.site-nav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  border-bottom: 1px solid var(--divider);
+}
+
+.nav-inner {
+  max-width: 980px; margin: 0 auto; padding: 0 22px;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 52px;
+}
+
+.nav-logo { font-size: 15px; font-weight: 600; color: var(--text-primary); text-decoration: none; }
+.nav-links { display: flex; align-items: center; gap: 28px; list-style: none; }
+.nav-links a { font-size: 14px; color: var(--text-secondary); text-decoration: none; transition: color .15s; }
+.nav-links a:hover, .nav-links a.active { color: var(--accent); font-weight: 500; }
+
+/* POST HEADER */
+.post-header {
+  padding: 64px 22px 48px;
+  max-width: var(--prose-width);
+  margin: 0 auto;
+}
+
+.post-back {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 14px; color: var(--text-tertiary);
+  text-decoration: none; margin-bottom: 32px;
+  transition: color .15s;
+}
+
+.post-back:hover { color: var(--accent); }
+
+.post-tag {
+  display: inline-block;
+  padding: 4px 14px;
+  background: var(--accent-soft);
+  border-radius: 980px;
+  font-size: 13px; font-weight: 600;
+  color: var(--accent); margin-bottom: 20px;
+}
+
+.post-title {
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  font-weight: 700; letter-spacing: -0.03em; line-height: 1.15;
+  margin-bottom: 20px;
+}
+
+.post-meta {
+  display: flex; align-items: center; gap: 16px;
+  font-size: 14px; color: var(--text-tertiary);
+  padding-bottom: 40px;
+  border-bottom: 1px solid var(--divider);
+}
+
+.post-author-dot {
+  width: 28px; height: 28px;
+  background: var(--accent-soft);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 700; color: var(--accent);
+}
+
+/* PROSE */
+.post-body {
+  max-width: var(--prose-width);
+  margin: 0 auto;
+  padding: 48px 22px 80px;
+}
+
+.post-body h2 {
+  font-size: 1.55rem; font-weight: 700;
+  letter-spacing: -0.02em; line-height: 1.25;
+  margin: 52px 0 20px;
+  color: var(--text-primary);
+}
+
+.post-body h2:first-child { margin-top: 0; }
+
+.post-body p {
+  font-size: 17px; line-height: 1.85;
+  color: var(--text-secondary);
+  margin-bottom: 24px;
+}
+
+.post-body ul, .post-body ol {
+  padding-left: 24px; margin-bottom: 24px;
+}
+
+.post-body li {
+  font-size: 17px; line-height: 1.8;
+  color: var(--text-secondary); margin-bottom: 8px;
+}
+
+.post-body strong { color: var(--text-primary); font-weight: 600; }
+
+.post-body code {
+  font-family: "SF Mono", "Fira Code", "Fira Mono", monospace;
+  font-size: 14px;
+  background: var(--bg2);
+  padding: 2px 8px; border-radius: 6px;
+  color: var(--accent);
+}
+
+.post-body pre {
+  background: #1d1d1f;
+  border-radius: var(--radius-sm);
+  padding: 28px; margin-bottom: 28px; overflow-x: auto;
+}
+
+.post-body pre code {
+  background: none; color: #e2e2e7; font-size: 14px; padding: 0;
+}
+
+.callout {
+  background: var(--accent-soft);
+  border-left: 4px solid var(--accent);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  padding: 20px 24px; margin-bottom: 28px;
+}
+
+.callout p { color: var(--text-primary); margin-bottom: 0; font-size: 15px; }
+
+/* POST FOOTER */
+.post-footer {
+  max-width: var(--prose-width);
+  margin: 0 auto;
+  padding: 0 22px 80px;
+  border-top: 1px solid var(--divider);
+  padding-top: 48px;
+}
+
+.post-footer-title { font-size: 20px; font-weight: 700; margin-bottom: 6px; }
+.post-footer-sub { font-size: 15px; color: var(--text-secondary); margin-bottom: 24px; }
+
+.post-footer-links { display: flex; gap: 14px; flex-wrap: wrap; }
+
+.pf-link {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 12px 22px;
+  background: var(--bg2); border-radius: 980px;
+  font-size: 14px; font-weight: 500;
+  color: var(--text-primary); text-decoration: none;
+  transition: background .18s, color .18s;
+}
+
+.pf-link:hover { background: var(--accent); color: #fff; }
+.pf-link.primary { background: var(--accent); color: #fff; }
+.pf-link.primary:hover { background: var(--accent-hover); }
+
+footer {
+  background: var(--bg2);
+  border-top: 1px solid var(--divider);
+  padding: 44px 0; text-align: center;
+}
+
+.footer-name { font-size: 17px; font-weight: 600; margin-bottom: 6px; }
+.footer-sub  { font-size: 14px; color: var(--text-tertiary); }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="site-nav">
+  <div class="nav-inner">
+    <a href="../index.html" class="nav-logo">Neha Patil</a>
+    <ul class="nav-links">
+      <li><a href="../index.html">About</a></li>
+      <li><a href="../index.html#experience">Experience</a></li>
+      <li><a href="../index.html#projects">Projects</a></li>
+      <li><a href="../blog.html" class="active">Writing ✍️</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- POST HEADER -->
+<div class="post-header">
+  <a href="../blog.html" class="post-back">← Back to Writing</a>
+  <div class="post-tag">RAG</div>
+  <h1 class="post-title">Getting Started with RAG: What I Built and What I Learned</h1>
+  <div class="post-meta">
+    <div class="post-author-dot">NP</div>
+    <span>Neha Patil</span>
+    <span>·</span>
+    <span>Week 1</span>
+    <span>·</span>
+    <span>8 min read</span>
+  </div>
+</div>
+
+<!-- POST BODY -->
+<div class="post-body">
+
+  <h2>Why I built DocChat AI</h2>
+  <p>
+    When I started my ML coursework at NYU, I kept running into the same problem: I had a pile of research papers and lecture notes, and no good way to query across them. Ctrl+F only goes so far. So I decided to build a document Q&A assistant — and in the process learned way more about RAG than I expected to.
+  </p>
+
+  <p>
+    This is a breakdown of what I built, the decisions I made, and the parts that surprised me. If you're building a RAG system for the first time, hopefully this saves you some of the trial and error.
+  </p>
+
+  <h2>What is RAG, actually?</h2>
+  <p>
+    Retrieval-Augmented Generation means you give an LLM access to external knowledge at inference time — rather than baking it into the weights via fine-tuning. The flow looks like this:
+  </p>
+
+  <ol>
+    <li>User asks a question.</li>
+    <li>You embed the question into a vector.</li>
+    <li>You search a vector store for the most similar document chunks.</li>
+    <li>You pass those chunks as context to the LLM along with the question.</li>
+    <li>The LLM generates an answer grounded in the retrieved context.</li>
+  </ol>
+
+  <p>
+    Simple in theory. The complexity lives in the details — especially steps 2, 3, and 4.
+  </p>
+
+  <div class="callout">
+    <p>💡 <strong>Key insight:</strong> The quality of your retrieval directly caps the quality of your generation. A great LLM can't answer from bad context. Fix retrieval first.</p>
+  </div>
+
+  <h2>The stack I used</h2>
+  <p>
+    For DocChat AI I went fully local: <strong>LangChain</strong> for orchestration, <strong>ChromaDB</strong> as the vector store, <strong>Ollama with Mistral 7B</strong> for generation, and <strong>FastAPI + Streamlit</strong> for the interface. No OpenAI API key required — everything runs offline.
+  </p>
+
+  <pre><code># Basic ingestion pipeline
+from langchain.document_loaders import PyPDFLoader
+from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain.embeddings import OllamaEmbeddings
+from langchain.vectorstores import Chroma
+
+loader = PyPDFLoader("paper.pdf")
+docs = loader.load()
+
+splitter = RecursiveCharacterTextSplitter(
+    chunk_size=512,
+    chunk_overlap=64
+)
+chunks = splitter.split_documents(docs)
+
+vectorstore = Chroma.from_documents(
+    chunks,
+    OllamaEmbeddings(model="mistral")
+)</code></pre>
+
+  <h2>The chunking decision matters more than you think</h2>
+  <p>
+    I started with a fixed chunk size of 1000 tokens. The results were mediocre — retrieved chunks would sometimes cut off mid-sentence or miss the context that came right before. Switching to <code>RecursiveCharacterTextSplitter</code> with overlap fixed most of this. The overlap means related content is duplicated across adjacent chunks, so retrieval is less brittle.
+  </p>
+
+  <p>What I'd do differently: experiment with semantic chunking (splitting on meaning boundaries rather than token count) — I haven't tried it yet but the results in papers look promising.</p>
+
+  <h2>What surprised me</h2>
+  <p>
+    The biggest surprise was how much the <strong>prompt template</strong> affected answer quality — almost as much as retrieval itself. Explicitly telling the model to say "I don't know" when the context doesn't contain the answer dramatically reduced hallucinations.
+  </p>
+
+  <p>The second surprise: Mistral 7B is genuinely impressive for a local model. It's not GPT-4, but for factual Q&A over document context it performs well above what I expected.</p>
+
+  <h2>Next steps</h2>
+  <p>
+    I want to add hybrid search (combining dense vector retrieval with BM25 keyword search) and experiment with reranking retrieved chunks before passing them to the LLM. Both are known to push retrieval quality up significantly.
+  </p>
+
+  <p>The code is on GitHub if you want to poke around. Happy to discuss in the comments or on LinkedIn.</p>
+
+</div>
+
+<!-- POST FOOTER -->
+<div class="post-footer">
+  <div class="post-footer-title">Enjoyed this?</div>
+  <div class="post-footer-sub">More posts on RAG, LLMs, and Agentic AI coming weekly.</div>
+  <div class="post-footer-links">
+    <a href="../blog.html" class="pf-link primary">← All posts</a>
+    <a href="https://www.linkedin.com/in/neha-patil08" target="_blank" class="pf-link">Connect on LinkedIn</a>
+    <a href="https://github.com/patilneha08" target="_blank" class="pf-link">See the code on GitHub</a>
+  </div>
+</div>
+
+<footer>
+  <div class="page" style="max-width:980px;margin:0 auto;padding:0 22px;">
+    <div class="footer-name">Neha Patil</div>
+    <div class="footer-sub">Writing about AI &nbsp;·&nbsp; neha.patil.tech@gmail.com</div>
+  </div>
+</footer>
+
+</body>
+</html>
