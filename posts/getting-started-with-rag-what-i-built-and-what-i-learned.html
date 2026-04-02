@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Getting Started with RAG: What I Built and What I Learned - Neha Patil</title>
+<style>
+:root {
+  --font: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", sans-serif;
+  --bg: #ffffff; --bg2: #f5f5f7;
+  --text-primary: #1d1d1f; --text-secondary: #6e6e73; --text-tertiary: #86868b;
+  --accent: #6e3aff; --accent-soft: #ede8ff; --divider: #d2d2d7;
+  --shadow-sm: 0 2px 8px rgba(0,0,0,0.07); --shadow-md: 0 4px 20px rgba(0,0,0,0.10);
+  --radius: 18px; --radius-sm: 12px;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--font); background: var(--bg); color: var(--text-primary);
+        font-size: 17px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+.page { max-width: 980px; margin: 0 auto; padding: 0 22px; }
+.site-nav { position: sticky; top: 0; z-index: 100;
+  background: rgba(255,255,255,0.85); backdrop-filter: saturate(180%) blur(20px);
+  border-bottom: 1px solid var(--divider); }
+.nav-inner { max-width: 980px; margin: 0 auto; padding: 0 22px;
+  display: flex; align-items: center; justify-content: space-between; height: 52px; }
+.nav-logo { font-size: 15px; font-weight: 600; color: var(--text-primary); text-decoration: none; }
+.nav-links { display: flex; align-items: center; gap: 28px; list-style: none; }
+.nav-links a { font-size: 14px; color: var(--text-secondary); text-decoration: none; transition: color .15s; }
+.nav-links a:hover, .nav-links a.active { color: var(--accent); font-weight: 500; }
+.post-hero { padding: 64px 0 48px; border-bottom: 1px solid var(--divider); }
+.post-tags { display: flex; gap: 8px; margin-bottom: 18px; flex-wrap: wrap; }
+.post-tag { padding: 3px 11px; background: var(--accent-soft); border-radius: 980px;
+              font-size: 12px; font-weight: 600; color: var(--accent); }
+.post-tag.rag   { background: #e8f9f0; color: #1a9e5c; }
+.post-tag.llms  { background: #fff4e6; color: #c0640a; }
+.post-tag.genai { background: #fde8f8; color: #9b3faa; }
+.post-tag.agent { background: #e8f1ff; color: #1a52c0; }
+.post-tag.tools { background: #e8fafb; color: #0a7a8a; }
+.post-title { font-size: clamp(2rem, 4vw, 3rem); font-weight: 700;
+               letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 16px; }
+.post-meta { font-size: 14px; color: var(--text-tertiary); }
+.post-body { max-width: 720px; padding: 56px 0 80px; }
+.post-body p { font-size: 17px; color: var(--text-secondary); line-height: 1.85;
+                margin-bottom: 22px; }
+.post-h2 { font-size: 1.5rem; font-weight: 700; letter-spacing: -0.02em;
+             margin: 44px 0 16px; color: var(--text-primary); }
+.back-link { display: inline-flex; align-items: center; gap: 6px;
+              font-size: 14px; font-weight: 500; color: var(--accent);
+              text-decoration: none; margin-bottom: 32px; }
+.back-link:hover { text-decoration: underline; }
+footer { background: var(--bg2); border-top: 1px solid var(--divider);
+          padding: 44px 0; text-align: center; }
+.footer-name { font-size: 17px; font-weight: 600; margin-bottom: 6px; }
+.footer-sub  { font-size: 14px; color: var(--text-tertiary); }
+</style>
+</head>
+<body>
+<nav class="site-nav">
+  <div class="nav-inner">
+    <a href="../index.html" class="nav-logo">Neha Patil</a>
+    <ul class="nav-links">
+      <li><a href="../index.html">About</a></li>
+      <li><a href="../index.html#experience">Experience</a></li>
+      <li><a href="../index.html#projects">Projects</a></li>
+      <li><a href="../blog.html" class="active">Writing</a></li>
+    </ul>
+  </div>
+</nav>
+<div class="post-hero">
+  <div class="page">
+    <a href="../blog.html" class="back-link">← All posts</a>
+    <div class="post-tags"><span class="post-tag rag">RAG</span><span class="post-tag llms">LLMS</span></div>
+    <h1 class="post-title">Getting Started with RAG: What I Built and What I Learned</h1>
+    <div class="post-meta">June 10, 2025</div>
+  </div>
+</div>
+<div class="page">
+  <div class="post-body">
+    <p>Retrieval-Augmented Generation (RAG) sounds simple in theory: take a user query, find relevant chunks from your documents, stuff them into an LLM prompt, and get a grounded answer. In practice there are a dozen decisions that will silently hurt your accuracy if you get them wrong.</p>
+<h2 class="post-h2">Why I built DocChat</h2>
+<p>I wanted a fully offline, privacy-preserving document Q&A system. No OpenAI API calls, no data leaving my machine. That meant running an open-source LLM (Mistral 7B via Ollama) and building every layer myself — ingestion, chunking, embedding, retrieval, and generation.</p>
+<h2 class="post-h2">The chunking problem</h2>
+<p>The single biggest lever I found was chunk size. Too large and the model gets distracted by irrelevant text in the same chunk. Too small and you lose the surrounding context the model needs to reason correctly.</p>
+<p>I ended up with 512-token chunks and a 64-token overlap using LangChain's RecursiveCharacterTextSplitter. That overlap is important — it prevents key sentences from being cut in half at a chunk boundary.</p>
+<h2 class="post-h2">Embedding model choice</h2>
+<p>I tested two models: all-MiniLM-L6-v2 (fast, lightweight) and BAAI/bge-base-en-v1.5 (slower, much better on technical text). For code and engineering documents, BGE won every time.</p>
+<h2 class="post-h2">What I'd do differently</h2>
+<p>Start with evals before you start with code. I spent two weeks tuning chunking and retrieval before I had a way to measure whether things were actually getting better. Build a small golden dataset of 20–30 question-answer pairs on day one.</p>
+<h2 class="post-h2">Links</h2>
+<p>Full project code is on my GitHub. The README has setup instructions for running Ollama locally on Mac or Linux.</p>
+  </div>
+</div>
+<footer>
+  <div class="page">
+    <div class="footer-name">Neha Patil</div>
+    <div class="footer-sub">Writing about AI &nbsp;&middot;&nbsp; neha.patil.tech@gmail.com</div>
+  </div>
+</footer>
+</body>
+</html>
