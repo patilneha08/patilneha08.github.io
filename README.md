@@ -1,24 +1,49 @@
-# Neha Patil - Portfolio & Blog
+# Blog Generator
 
-Personal portfolio and weekly AI/ML blog. Built with plain HTML, CSS, and JavaScript.
+A GitHub Actions-powered blog that automatically generates HTML pages from Markdown text files.
 
-The website can be found at :
-
-https://patilneha08.github.io
-
-## Structure
+## Project Structure
 
 ```
-/
-├── index.html        # Portfolio
-├── blog.html         # Blog index
-├── Neha.png          # Profile photo
-└── posts/            # Individual blog posts
+patilneha08.github.io/
+├── .github/
+│   └── workflows/
+│       └── build-blog.yml      ← the workflow file
+├── scripts/
+│   └── generate_blog.py        ← the generator script
+├── blog/                       ← NEW folder — drop your .txt files here
+│   └── getting-started-with-rag.txt   ← example
+├── blog.html
+├── index.html
+└── posts/                      ← auto-generated, don't edit manually
 ```
 
-## Adding a Blog Post
+## How to Write a New Post
 
-1. Copy `posts/getting-started-with-rag.html` and rename it
-2. Update the title, tag, and body content
-3. Add a new row to `blog.html` and remove the `coming-soon` class when ready
-4. Swap the oldest preview card on `index.html` with the new post
+Create a `.txt` file in the `blog/` folder with this format:
+
+```
+title: My Post Title
+tags: rag, llms
+excerpt: One sentence teaser shown on the cards.
+date: 2025-06-15
+---
+Your content here. Blank lines = new paragraph.
+
+## A heading
+
+More content...
+```
+
+**Valid tags:** `rag`, `llms`, `genai`, `agent`, `tools` (these match your existing CSS colour classes).
+
+## What Happens on Push
+
+1. You add `blog/my-new-post.txt` and push to `main`
+2. GitHub Actions triggers automatically
+3. The script generates `posts/my-new-post.html`, updates `blog.html`'s post list, and refreshes the 3 latest cards in `index.html`
+4. The bot commits everything back with message: `🤖 Auto-generate blog pages from TXT files`
+5. Your site updates within ~30 seconds
+
+The `[skip ci]` tag in the bot commit prevents an infinite loop of workflow triggers.
+
